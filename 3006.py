@@ -47,7 +47,6 @@ while(1):
     color = np.random.randint(0,255,(100,3))
     print p0
     break
-
 while (1):
     ret, frame = cap.read()
     frame = cv2.flip(frame, 1)
@@ -147,7 +146,7 @@ while (1):
         frame_old = frame.copy()
         p0 = good_new.reshape(-1, 1, 2)
         #k = cv2.waitKey(30) & 0xff
-
+# Update r ne
     # Now update the previous frame and previous points
 
 
