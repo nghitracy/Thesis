@@ -2,9 +2,10 @@ import cv2
 import numpy as np
 from selenium import webdriver
 
+
 # Parameters for find the goodcorners to track
 feature_params = dict( maxCorners = 1,
-                       qualityLevel = 0.3,
+                       qualityLevel = 0.45,
                        minDistance = 7,
                        blockSize = 7 )
 # Parameters for lucas kanade optical flow
@@ -20,6 +21,7 @@ browser.get('http://google.com/')
 
 # Capture video via the webcam
 cap = cv2.VideoCapture(0)
+
 # Loading the XML file for detect face in opencv library
 face_cascade = cv2.CascadeClassifier('C:\Python27\opencv\sources\data\haarcascades\haarcascade_frontalface_default.xml')
 
@@ -48,6 +50,7 @@ while(1):
     cv2.rectangle(frame_old, (x, y), (x + w, y + h), (255, 0, 0), 2)
     roi_gray = gray_old[y:y + h, x:x + w]
     roi_color = frame_old[y:y + h, x:x + w]
+
 
     # Create the corner (interest point) in the region of face
     corners = cv2.goodFeaturesToTrack(roi_gray, mask = None, **feature_params)
@@ -94,8 +97,9 @@ while (1):
     # Check if the next point can be detected or not, if not, the system detects the face and create the interest point again.
     if st is None or st.all()==0 or numberofframe == 1000:
         print 'tao moi'
-        faces = face_cascade.detectMultiScale(gray_old, 1.3, 5)
+        faces = face_cascade.detectMultiScale(frame_gray, 1.3, 5)
         if len(faces) == 0:
+            print "ko thay face 2"
             continue
         x, y, w, h = faces[0]
         roi_gray = gray_old[y:y + h, x:x + w]
